@@ -33,7 +33,7 @@ SharpCaster is a cross-platform C# SDK and console application for interacting w
 
 ## Formula Details
 
-- **Version**: 3.0.0-beta1
+- **Version**: 3.0.0
 - **License**: MIT
 - **Supported platforms**: macOS (Intel and Apple Silicon), Linux (64 and ARM)
 - **Homepage**: https://github.com/Tapanila/SharpCaster

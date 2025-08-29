@@ -19,11 +19,45 @@ jobs:
 
       - name: Ensure dependencies
         run: |
+          echo "::group::Installing dependencies"
           sudo apt-get update
-          sudo apt-get install -y jq
+          sudo apt-get install -y jq curl
+          echo "::endgroup::"
+          
+          echo "::group::Environment info"
+          echo "Git version: $(git --version)"
+          echo "Curl version: $(curl --version | head -1)"
+          echo "jq version: $(jq --version)"
+          echo "Current working directory: $(pwd)"
+          echo "Current user: $(whoami)"
+          echo "Git config:"
+          git config --list | grep -E '^(user\.|remote\.origin\.url)' || echo "No user config found"
+          echo "::endgroup::"
 
       - name: Run updater
+        id: update
         run: |
           chmod +x .github/scripts/update_sharpcaster_formula.sh
-          .github/scripts/update_sharpcaster_formula.sh
+          echo "::group::Update Sharpcaster Formula"
+          if .github/scripts/update_sharpcaster_formula.sh; then
+            echo "::notice::Sharpcaster formula update completed successfully"
+            echo "success=true" >> $GITHUB_OUTPUT
+          else
+            exit_code=$?
+            echo "::error::Sharpcaster formula update failed with exit code $exit_code"
+            echo "success=false" >> $GITHUB_OUTPUT
+            exit $exit_code
+          fi
+          echo "::endgroup::"
+      
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: update-logs-${{ github.run_id }}
+          path: |
+            *.log
+            /tmp/*.log
+          retention-days: 7
+          if-no-files-found: ignore
 
