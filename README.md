@@ -38,6 +38,16 @@ SharpCaster is a cross-platform C# SDK and console application for interacting w
 - **Supported platforms**: macOS (Intel and Apple Silicon), Linux (64 and ARM)
 - **Homepage**: https://github.com/Tapanila/SharpCaster
 
+## Automation
+
+- **Daily updates**: A scheduled GitHub Action checks daily for new
+  releases on `Tapanila/SharpCaster` and updates `Formula/sharpcaster.rb`
+  with the latest version, URLs, and SHA256 hashes.
+- **Manual trigger**: You can also trigger the workflow manually from the
+  Actions tab (`Update SharpCaster Formula`).
+- **README sync**: The workflow also updates the version shown above to
+  match the latest release.
+
 ## Contributing
 
 This tap follows the standard Homebrew tap structure. The formula is located in `Formula/sharpcaster.rb`.
