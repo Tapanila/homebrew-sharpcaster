@@ -56,10 +56,10 @@ for encoded in $assets; do
   aname=$(echo "$line" | jq -r .name)
   aurl=$(echo "$line" | jq -r .url)
   case "$aname" in
-    *osx-arm64*.zip)   URLS[osx_arm64]="$aurl" ;;
-    *osx-x64*.zip)     URLS[osx_x64]="$aurl" ;;
-    *linux-arm64*.zip) URLS[linux_arm64]="$aurl" ;;
-    *linux-x64*.zip)   URLS[linux_x64]="$aurl" ;;
+    *osx-arm64*.tar.gz)   URLS[osx_arm64]="$aurl" ;;
+    *osx-x64*.tar.gz)     URLS[osx_x64]="$aurl" ;;
+    *linux-arm64*.tar.gz) URLS[linux_arm64]="$aurl" ;;
+    *linux-x64*.tar.gz)   URLS[linux_x64]="$aurl" ;;
   esac
 done
 
@@ -78,7 +78,7 @@ trap 'rm -rf "$tmpdir"' EXIT
 declare -A SHAS
 for key in osx_arm64 osx_x64 linux_arm64 linux_x64; do
   url="${URLS[$key]}"
-  out="$tmpdir/${key}.zip"
+  out="$tmpdir/${key}.tar.gz"
   echo "Downloading $key asset ..."
   curl -fsSL "$url" -o "$out"
   if [[ "$SHA256" == "sha256sum" ]]; then
