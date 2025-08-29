@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
+# SharpCaster Formula Update Script
+# 
+# This script automatically updates the Homebrew formula for SharpCaster by:
+# 1. Fetching the latest release from GitHub API
+# 2. Downloading and verifying checksums for all platform assets
+# 3. Updating the formula file with new URLs and SHA256 hashes
+# 4. Updating the README.md with the new version
+# 5. Committing and pushing changes if any updates were made
+#
+# The script includes comprehensive error handling and logging to help
+# diagnose issues when running in GitHub Actions or locally.
+
 set -euo pipefail
 
 REPO_OWNER="Tapanila"
