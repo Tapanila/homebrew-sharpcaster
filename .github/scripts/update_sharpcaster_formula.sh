@@ -42,6 +42,7 @@ fi
 tag=$(echo "$release" | jq -r .tag_name)
 name=$(echo "$release" | jq -r .name)
 version="$tag"
+version_no_v="${version#v}"  # Remove 'v' prefix if present
 
 echo "Latest release: tag=${tag} name=${name} version=${version}"
 
