@@ -2,7 +2,6 @@ class Sharpcaster < Formula
   desc "Cross-platform C# console application for interacting with Google Chromecast devices"
   homepage "https://github.com/Tapanila/SharpCaster"
   version "3.0.0"
-  revision 1
   license "MIT"
 
   if OS.mac? && Hardware::CPU.arm?
@@ -21,8 +20,6 @@ class Sharpcaster < Formula
 
   def install
     libexec.install Dir["*"]
-    # Ensure the binary is executable; release archives may lack +x bit
-    chmod "+x", libexec/"sharpcaster"
     bin.install_symlink libexec/"sharpcaster" => "sharpcaster"
   end
 
